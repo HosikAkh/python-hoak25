@@ -18,9 +18,6 @@ marvin_image = r"""
  /____\    
 /      \
 
-Its an eternal loop, until q is pressed.
-It should check the choice done by the user and call a appropriate
-function.
 """
 
 stop = False
