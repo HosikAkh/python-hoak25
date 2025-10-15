@@ -29,11 +29,9 @@ def points_to_grade():
             grade = "E"
         elif your_points < 0.5 * max_points:
             grade = "F"
-        
         print(f"score: {grade}")
-
-    except:
-                print("Numbers!!")
+    except ValueError:
+        print("Numbers!!")
 
 def compare_numbers():
     storage = None
@@ -42,68 +40,51 @@ def compare_numbers():
 
         if user_input.lower() == "done":
             break
-
         try:
-            number = float(user_input)
-            if storage is None:
-                next_input = input("Enter another number to compare: ")
-                try:
-                    next_number = float(next_input)
-                    if next_number > number:
-                        print("larger!")
-                    elif next_number < number:
-                        print("smaller!")
-                    else:
-                        print("same!")
-                    storage = next_number
-                except ValueError:
-                    print("not a number!")
-                    storage = number
-                else:
-                    if number > storage:
-                        print("larger!")
-                    elif number < storage:
-                        print("smaller!")
-                    else:
-                        print("same!")
-                    storage = number
+            num = float(user_input)
         except ValueError:
-            print("not a number!")
+            print("Not a number!")
+            continue
+        if storage is None:
+            storage = num
+            continue
 
-def validation_of_ssn():
-    On = True
-    while On:
-        enter = input("Enter social number(YYMMDD-XXXZ or YYMMDDXXXX): ")
-
-        Security_code = ""
-        Wrong_numb = False
-
-        for numb in enter:
-            if numb.isdigit():
-                Security_code += numb
-            elif numb == "-":
-                pass
-            else:
-                Wrong_numb = True
-                break
-        
-        if Wrong_numb or len(Security_code) != 10:
-            print("Not valid")
+        if num > storage:
+            print("larger!")
+        elif num < storage:
+            print("smaller!")
         else:
-            total = 0
-            for i in range(10):
-                v = int(Security_code[i])
-                if i % 2 == 0:
-                    v = v * 2
-                    if v > 9:
-                        v = v // 10 + v % 10
-                total += v
+            print("same!")
+        storage = num
+def validate_ssn():
+    ten = 10
+    enter = input("Enter social number(YYMMDD-XXXZ or YYMMDDXXXX): ")
 
-            if total % 10 == 0:
-                print("Valid")
-            else:
-                print("Not valid")
-        break
+    Security_code = ""
+    Wrong_numb = False
+
+    for numb in enter:
+        if numb.isdigit():
+            Security_code += numb
+        elif numb == "-":
+            pass
+        else:
+            Wrong_numb = True
+            break
+    if Wrong_numb or len(Security_code) != ten:
+        print("Not valid")
+    else:
+        total = 0
+        nine = 9
+        for i in range(10):
+            v = int(Security_code[i])
+            if i % 2 == 0:
+                v = v * 2
+                if v > nine:
+                    v = v // 10 + v % 10
+            total += v
+
+            print("Valid" if total % 10 == 0 else "Not Valid")
 
 def robber_language():
     vocals = "aeiouyåäöAEIOUYÅÄÖ"
@@ -115,5 +96,4 @@ def robber_language():
             transfer +=  i + "o" + i.lower()
         else:
             transfer += i
-    
     print(transfer)
